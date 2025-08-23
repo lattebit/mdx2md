@@ -1,0 +1,49 @@
+{
+  "name": "@repo/mdx2md",
+  "version": "0.1.0",
+  "description": "Universal MDX to Markdown converter for LLM-friendly documentation",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./presets": "./src/presets/index.ts",
+    "./config": "./src/config/index.ts"
+  },
+  "scripts": {
+    "dev": "tsx watch src/cli.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check ./src",
+    "lint:fix": "biome check --write ./src",
+    "test": "vitest",
+    "test:watch": "vitest --watch"
+  },
+  "dependencies": {
+    "unified": "^11.0.5",
+    "remark": "^15.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-stringify": "^11.0.0",
+    "remark-mdx": "^3.1.0",
+    "remark-gfm": "^4.0.0",
+    "mdast-util-gfm-table": "^2.0.0",
+    "remark-frontmatter": "^5.0.0",
+    "mdast-util-mdx": "^3.0.0",
+    "mdast-util-to-string": "^4.0.0",
+    "unist-util-visit": "^5.0.0",
+    "gray-matter": "^4.0.3",
+    "micromatch": "^4.0.8",
+    "chokidar": "^4.0.3",
+    "commander": "^12.1.0",
+    "es-toolkit": "^1.31.0",
+    "debug": "^4.3.7"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/debug": "catalog:",
+    "@types/micromatch": "^4.0.9",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^2.1.8"
+  }
+}
