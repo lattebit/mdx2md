@@ -2,10 +2,10 @@ import type { Mdx2MdConfig } from '../mdx2md/src/types/index.js'
 import { join } from 'path'
 
 // Export a function that returns the config with dynamic values
-// tRPC has documentation in the www folder
+// tRPC uses Docusaurus for documentation
 export function getConfig(repoPath: string, docsPath: string): Mdx2MdConfig {
   return {
-    preset: 'docusaurus',
+    preset: 'docusaurus', // Confirmed: uses Docusaurus
     source: join(repoPath, docsPath),
     output: '../output/trpc',
     outputMode: 'tree',

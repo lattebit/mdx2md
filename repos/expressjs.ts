@@ -2,20 +2,20 @@ import type { Mdx2MdConfig } from '../mdx2md/src/types/index.js'
 import { join } from 'path'
 
 // Export a function that returns the config with dynamic values
-// Redux uses custom documentation site
+// Express documentation is in a separate repository expressjs.com
 export function getConfig(repoPath: string, docsPath: string): Mdx2MdConfig {
   return {
     preset: undefined, // Custom documentation site
     source: join(repoPath, docsPath),
-    output: '../output/redux',
+    output: '../output/expressjs',
     outputMode: 'tree',
-    include: ['**/*.mdx', '**/*.md'],
-    exclude: ['node_modules/**', '.git/**', 'versioned_docs/**', 'blog/**'],
+    include: ['**/*.md', '**/*.jade'],
+    exclude: ['node_modules/**', '.git/**', '_includes/**'],
     corePass: {
-      stripEsm: true,
+      stripEsm: false,
       frontmatterTitle: true,
       normalizeFences: true,
-      groupCodeTabs: true,
+      groupCodeTabs: false,
       normalizeWhitespace: true,
       rewriteLinks: {
         extensions: { '.mdx': '.md' },

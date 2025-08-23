@@ -49,6 +49,13 @@
       "configFile": "express.ts",
       "outputPath": "../output/express"
     },
+    "expressjs": {
+      "url": "https://github.com/expressjs/expressjs.com",
+      "branch": "gh-pages",
+      "docsPath": "en",
+      "configFile": "expressjs.ts",
+      "outputPath": "../output/expressjs"
+    },
     "fastify": {
       "url": "https://github.com/fastify/fastify",
       "branch": "main",
@@ -77,10 +84,17 @@
       "configFile": "drizzle.ts",
       "outputPath": "../output/drizzle"
     },
-    "prisma": {
-      "url": "https://github.com/prisma/prisma",
+    "drizzle-orm-docs": {
+      "url": "https://github.com/drizzle-team/drizzle-orm-docs",
       "branch": "main",
-      "docsPath": ".",
+      "docsPath": "src/content",
+      "configFile": "drizzle-orm-docs.ts",
+      "outputPath": "../output/drizzle-orm-docs"
+    },
+    "prisma": {
+      "url": "https://github.com/prisma/docs",
+      "branch": "main",
+      "docsPath": "content",
       "configFile": "prisma.ts",
       "outputPath": "../output/prisma"
     },
@@ -125,6 +139,13 @@
       "docsPath": "docs",
       "configFile": "redux.ts",
       "outputPath": "../output/redux"
+    },
+    "tanstack": {
+      "url": "https://github.com/TanStack/tanstack.com",
+      "branch": "main",
+      "docsPath": "app",
+      "configFile": "tanstack.ts",
+      "outputPath": "../output/tanstack"
     }
   }
 }
