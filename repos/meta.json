@@ -13,6 +13,104 @@
       "docsPath": "docs",
       "configFile": "nextjs.ts",
       "outputPath": "../output/nextjs"
+    },
+    "tanstack-router": {
+      "url": "https://github.com/TanStack/router",
+      "branch": "main",
+      "docsPath": "docs/router",
+      "configFile": "tanstack-router.ts",
+      "outputPath": "../output/tanstack-router"
+    },
+    "tanstack-start": {
+      "url": "https://github.com/TanStack/router",
+      "branch": "main",
+      "docsPath": "docs/start",
+      "configFile": "tanstack-start.ts",
+      "outputPath": "../output/tanstack-start"
+    },
+    "react-router": {
+      "url": "https://github.com/remix-run/react-router",
+      "branch": "main",
+      "docsPath": "docs",
+      "configFile": "react-router.ts",
+      "outputPath": "../output/react-router"
+    },
+    "hono": {
+      "url": "https://github.com/honojs/hono",
+      "branch": "main",
+      "docsPath": "docs",
+      "configFile": "hono.ts",
+      "outputPath": "../output/hono"
+    },
+    "express": {
+      "url": "https://github.com/expressjs/express",
+      "branch": "master",
+      "docsPath": ".",
+      "configFile": "express.ts",
+      "outputPath": "../output/express"
+    },
+    "fastify": {
+      "url": "https://github.com/fastify/fastify",
+      "branch": "main",
+      "docsPath": "docs",
+      "configFile": "fastify.ts",
+      "outputPath": "../output/fastify"
+    },
+    "trpc": {
+      "url": "https://github.com/trpc/trpc",
+      "branch": "main",
+      "docsPath": "www",
+      "configFile": "trpc.ts",
+      "outputPath": "../output/trpc"
+    },
+    "orpc": {
+      "url": "https://github.com/unnoq/orpc",
+      "branch": "main",
+      "docsPath": ".",
+      "configFile": "orpc.ts",
+      "outputPath": "../output/orpc"
+    },
+    "drizzle": {
+      "url": "https://github.com/drizzle-team/drizzle-orm",
+      "branch": "main",
+      "docsPath": ".",
+      "configFile": "drizzle.ts",
+      "outputPath": "../output/drizzle"
+    },
+    "prisma": {
+      "url": "https://github.com/prisma/prisma",
+      "branch": "main",
+      "docsPath": ".",
+      "configFile": "prisma.ts",
+      "outputPath": "../output/prisma"
+    },
+    "turborepo": {
+      "url": "https://github.com/vercel/turborepo",
+      "branch": "main",
+      "docsPath": "docs",
+      "configFile": "turborepo.ts",
+      "outputPath": "../output/turborepo"
+    },
+    "fumadocs": {
+      "url": "https://github.com/fuma-nama/fumadocs",
+      "branch": "dev",
+      "docsPath": "apps/docs",
+      "configFile": "fumadocs.ts",
+      "outputPath": "../output/fumadocs"
+    },
+    "fastapi": {
+      "url": "https://github.com/fastapi/fastapi",
+      "branch": "master",
+      "docsPath": "docs",
+      "configFile": "fastapi.ts",
+      "outputPath": "../output/fastapi"
+    },
+    "django": {
+      "url": "https://github.com/django/django",
+      "branch": "main",
+      "docsPath": "docs",
+      "configFile": "django.ts",
+      "outputPath": "../output/django"
     }
   }
 }
