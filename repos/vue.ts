@@ -2,15 +2,15 @@ import type { Mdx2MdConfig } from '../mdx2md/src/types/index.js'
 import { join } from 'path'
 
 // Export a function that returns the config with dynamic values
-// Note: Drizzle uses Astro for website, repo contains plain markdown
+// Vue.js uses VitePress for its documentation
 export function getConfig(repoPath: string, docsPath: string): Mdx2MdConfig {
   return {
-    preset: undefined, // Plain markdown in repo (Astro is for website)
+    preset: 'vitepress',
     source: join(repoPath, docsPath),
-    output: '../output/drizzle',
+    output: '../output/vue',
     outputMode: 'tree',
-    include: ['**/*.md', 'README.md'],
-    exclude: ['node_modules/**', '.git/**', '**/meta.json', 'examples/**'],
+    include: ['**/*.md'],
+    exclude: ['node_modules/**', '.git/**', '.vitepress/**', '**/dist/**'],
     corePass: {
       stripEsm: false,
       frontmatterTitle: true,

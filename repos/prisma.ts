@@ -5,7 +5,7 @@ import { join } from 'path'
 // Prisma documentation is external, we'll process README and any available docs
 export function getConfig(repoPath: string, docsPath: string): Mdx2MdConfig {
   return {
-    preset: 'fumadocs',
+    preset: 'docusaurus',
     source: join(repoPath, docsPath),
     output: '../output/prisma',
     outputMode: 'tree',

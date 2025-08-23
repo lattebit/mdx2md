@@ -5,7 +5,7 @@ import { join } from 'path'
 // tRPC has documentation in the www folder
 export function getConfig(repoPath: string, docsPath: string): Mdx2MdConfig {
   return {
-    preset: 'fumadocs',
+    preset: 'docusaurus',
     source: join(repoPath, docsPath),
     output: '../output/trpc',
     outputMode: 'tree',

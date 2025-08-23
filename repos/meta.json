@@ -111,6 +111,20 @@
       "docsPath": "docs",
       "configFile": "django.ts",
       "outputPath": "../output/django"
+    },
+    "vue": {
+      "url": "https://github.com/vuejs/docs",
+      "branch": "main",
+      "docsPath": "src",
+      "configFile": "vue.ts",
+      "outputPath": "../output/vue"
+    },
+    "redux": {
+      "url": "https://github.com/reduxjs/redux",
+      "branch": "master",
+      "docsPath": "docs",
+      "configFile": "redux.ts",
+      "outputPath": "../output/redux"
     }
   }
 }
