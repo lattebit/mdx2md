@@ -17,7 +17,9 @@
     "lint": "biome check ./src",
     "lint:fix": "biome check --write ./src",
     "test": "vitest",
-    "test:watch": "vitest --watch"
+    "test:watch": "vitest --watch",
+    "generate-matrix": "node ../scripts/generate-matrix.js",
+    "convert-repo": "tsx src/cli.ts convert"
   },
   "dependencies": {
     "unified": "^11.0.5",
@@ -39,11 +41,11 @@
     "debug": "^4.3.7"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "@types/debug": "catalog:",
+    "@types/node": "^20.0.0",
+    "@types/debug": "^4.1.12",
     "@types/micromatch": "^4.0.9",
-    "tsx": "catalog:",
-    "typescript": "catalog:",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
     "vitest": "^2.1.8"
   }
 }

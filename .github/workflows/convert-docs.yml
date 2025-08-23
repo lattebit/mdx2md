@@ -1,0 +1,99 @@
+name: Convert Documentation (Dynamic)
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM UTC
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'repos/**'
+      - 'mdx2md/src/**'
+      - '.github/workflows/convert-docs.yml'
+
+jobs:
+  generate-matrix:
+    name: Generate Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.generate.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          
+      - name: Install dependencies
+        run: |
+          cd mdx2md
+          pnpm install
+        
+      - id: generate
+        name: Generate matrix from repos/
+        run: |
+          # Generate matrix JSON from repos/meta.json
+          matrix=$(node scripts/generate-matrix.js)
+          echo "matrix=${matrix}" >> "$GITHUB_OUTPUT"
+          echo "Generated matrix for $(echo $matrix | jq '.repo | length') repositories"
+
+  convert:
+    needs: generate-matrix
+    name: Convert ${{ matrix.repo.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.generate-matrix.outputs.matrix) }}
+      
+    steps:
+      - name: Checkout mdx2md
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          
+      - name: Install dependencies
+        run: |
+          cd mdx2md
+          pnpm install
+        
+      - name: Clone target repository
+        run: |
+          git clone --depth 1 -b ${{ matrix.repo.branch }} ${{ matrix.repo.url }} /tmp/target-repo
+          
+      - name: Convert ${{ matrix.repo.name }}
+        run: |
+          cd mdx2md
+          pnpm tsx src/cli.ts convert --repo-file ../${{ matrix.repo.file }} --clone-path /tmp/target-repo
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.repo.name }}-markdown
+          path: ${{ matrix.repo.output }}
+          retention-days: 30
+          
+      - name: Summary
+        if: always()
+        run: |
+          echo "### 📚 ${{ matrix.repo.name }}" >> $GITHUB_STEP_SUMMARY
+          if [ -d "${{ matrix.repo.output }}" ]; then
+            count=$(find "${{ matrix.repo.output }}" -name "*.md" | wc -l)
+            echo "✅ Converted ${count} files" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Conversion failed" >> $GITHUB_STEP_SUMMARY
+          fi
