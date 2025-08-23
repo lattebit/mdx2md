@@ -5,146 +5,152 @@
       "branch": "main",
       "docsPath": "apps/www/content/docs",
       "configFile": "shadcn-ui.ts",
-      "outputPath": "../output/shadcn-ui"
+      "outputPath": "../output/shadcn-ui",
+      "preset": "fumadocs"
     },
     "nextjs": {
       "url": "https://github.com/vercel/next.js",
       "branch": "canary",
       "docsPath": "docs",
       "configFile": "nextjs.ts",
-      "outputPath": "../output/nextjs"
+      "outputPath": "../output/nextjs",
+      "preset": "fumadocs"
     },
     "tanstack-router": {
       "url": "https://github.com/TanStack/router",
       "branch": "main",
       "docsPath": "docs/router",
-      "configFile": "tanstack-router.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/tanstack-router"
     },
     "tanstack-start": {
       "url": "https://github.com/TanStack/router",
       "branch": "main",
       "docsPath": "docs/start",
-      "configFile": "tanstack-start.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/tanstack-start"
     },
     "react-router": {
       "url": "https://github.com/remix-run/react-router",
       "branch": "main",
       "docsPath": "docs",
-      "configFile": "react-router.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/react-router"
     },
     "hono": {
       "url": "https://github.com/honojs/hono",
       "branch": "main",
       "docsPath": "docs",
-      "configFile": "hono.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/hono"
     },
     "express": {
       "url": "https://github.com/expressjs/express",
       "branch": "master",
       "docsPath": ".",
-      "configFile": "express.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/express"
     },
     "expressjs": {
       "url": "https://github.com/expressjs/expressjs.com",
       "branch": "gh-pages",
       "docsPath": "en",
-      "configFile": "expressjs.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/expressjs"
     },
     "fastify": {
       "url": "https://github.com/fastify/fastify",
       "branch": "main",
       "docsPath": "docs",
-      "configFile": "fastify.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/fastify"
     },
     "trpc": {
       "url": "https://github.com/trpc/trpc",
       "branch": "main",
       "docsPath": "www",
-      "configFile": "trpc.ts",
-      "outputPath": "../output/trpc"
+      "configFile": "default-config.ts",
+      "outputPath": "../output/trpc",
+      "preset": "docusaurus"
     },
     "orpc": {
       "url": "https://github.com/unnoq/orpc",
       "branch": "main",
       "docsPath": ".",
-      "configFile": "orpc.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/orpc"
     },
     "drizzle": {
       "url": "https://github.com/drizzle-team/drizzle-orm",
       "branch": "main",
       "docsPath": ".",
-      "configFile": "drizzle.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/drizzle"
     },
     "drizzle-orm-docs": {
       "url": "https://github.com/drizzle-team/drizzle-orm-docs",
       "branch": "main",
       "docsPath": "src/content",
-      "configFile": "drizzle-orm-docs.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/drizzle-orm-docs"
     },
     "prisma": {
       "url": "https://github.com/prisma/docs",
       "branch": "main",
       "docsPath": "content",
-      "configFile": "prisma.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/prisma"
     },
     "turborepo": {
       "url": "https://github.com/vercel/turborepo",
       "branch": "main",
       "docsPath": "docs",
-      "configFile": "turborepo.ts",
-      "outputPath": "../output/turborepo"
+      "configFile": "default-config.ts",
+      "outputPath": "../output/turborepo",
+      "preset": "fumadocs"
     },
     "fumadocs": {
       "url": "https://github.com/fuma-nama/fumadocs",
       "branch": "dev",
       "docsPath": "apps/docs",
-      "configFile": "fumadocs.ts",
-      "outputPath": "../output/fumadocs"
+      "configFile": "default-config.ts",
+      "outputPath": "../output/fumadocs",
+      "preset": "fumadocs"
     },
     "fastapi": {
       "url": "https://github.com/fastapi/fastapi",
       "branch": "master",
       "docsPath": "docs",
-      "configFile": "fastapi.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/fastapi"
     },
     "django": {
       "url": "https://github.com/django/django",
       "branch": "main",
       "docsPath": "docs",
-      "configFile": "django.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/django"
     },
     "vue": {
       "url": "https://github.com/vuejs/docs",
       "branch": "main",
       "docsPath": "src",
-      "configFile": "vue.ts",
-      "outputPath": "../output/vue"
+      "configFile": "default-config.ts",
+      "outputPath": "../output/vue",
+      "preset": "vitepress"
     },
     "redux": {
       "url": "https://github.com/reduxjs/redux",
       "branch": "master",
       "docsPath": "docs",
-      "configFile": "redux.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/redux"
     },
     "tanstack": {
       "url": "https://github.com/TanStack/tanstack.com",
       "branch": "main",
       "docsPath": "app",
-      "configFile": "tanstack.ts",
+      "configFile": "default-config.ts",
       "outputPath": "../output/tanstack"
     }
   }

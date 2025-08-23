@@ -1,21 +1,20 @@
 import type { Mdx2MdConfig } from '../mdx2md/src/types/index.js'
 import { join } from 'path'
 
-// Export a function that returns the config with dynamic values
-// Fumadocs is self-documenting and uses its own framework
-export function getConfig(repoPath: string, docsPath: string): Mdx2MdConfig {
+// Default configuration generator for standard repositories
+export function getConfig(repoPath: string, docsPath: string, preset?: string): Mdx2MdConfig {
   return {
-    preset: 'fumadocs',
+    preset: preset as any, // Will be undefined for plain markdown, or specific preset
     source: join(repoPath, docsPath),
-    output: '../output/fumadocs',
+    output: '../output/default', // Will be overridden by meta.json
     outputMode: 'tree',
     include: ['**/*.mdx', '**/*.md'],
-    exclude: ['node_modules/**', '.git/**', '**/meta.json', '**/_*', '**/public/**'],
+    exclude: ['node_modules/**', '.git/**', '**/meta.json', '**/_*', '**/dist/**', '**/public/**'],
     corePass: {
-      stripEsm: true,
+      stripEsm: preset ? true : false, // Strip ESM for framework-based docs
       frontmatterTitle: true,
       normalizeFences: true,
-      groupCodeTabs: true,
+      groupCodeTabs: preset ? true : false, // Group tabs for framework-based docs
       normalizeWhitespace: true,
       rewriteLinks: {
         extensions: { '.mdx': '.md' },

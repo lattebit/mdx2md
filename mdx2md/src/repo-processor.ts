@@ -20,6 +20,7 @@ interface RepoMeta {
   docsPath: string
   configFile: string
   outputPath: string
+  preset?: string
 }
 
 function loadRepoMeta(configFile: string): RepoMeta | null {
@@ -87,8 +88,8 @@ export async function processRepository(options: RepoProcessOptions): Promise<vo
       throw new Error(`Config file ${options.configFile} must export a getConfig function`)
     }
     
-    // Use the getConfig function
-    const adjustedConfig = configModule.getConfig(repoPath, repoMeta.docsPath)
+    // Use the getConfig function with preset from meta.json if available
+    const adjustedConfig = configModule.getConfig(repoPath, repoMeta.docsPath, repoMeta.preset)
     
     // Override output path from meta.json if specified
     if (repoMeta.outputPath) {
