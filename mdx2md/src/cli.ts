@@ -3,6 +3,7 @@
 import { program } from 'commander'
 import { transform } from './transform.js'
 import { processRepository } from './repo-processor.js'
+import { processRepositoryByName } from './repo-by-name.js'
 import { loadConfig, mergeConfig, validateConfig } from './config/index.js'
 import type { Mdx2MdConfig } from './types/index.js'
 import { version } from '../package.json' assert { type: 'json' }
@@ -24,10 +25,21 @@ program
   .option('--include <patterns...>', 'File patterns to include')
   .option('--exclude <patterns...>', 'File patterns to exclude')
   .option('--repo-file <path>', 'Repository configuration file (.ts)')
+  .option('--repo-name <name>', 'Repository name from meta.json')
   .option('--clone-path <path>', 'Path to cloned repository (skip cloning if provided)')
   .option('--keep-temp', 'Keep temporary clone directory after processing')
   .action(async (options) => {
     try {
+      // Handle repository name processing
+      if (options.repoName) {
+        await processRepositoryByName({
+          name: options.repoName,
+          clonePath: options.clonePath,
+          keepTemp: options.keepTemp
+        })
+        return
+      }
+      
       // Handle repository file processing
       if (options.repoFile) {
         await processRepository({

@@ -78,7 +78,11 @@ jobs:
       - name: Convert ${{ matrix.repo.name }}
         run: |
           cd mdx2md
-          pnpm tsx src/cli.ts convert --repo-file ../${{ matrix.repo.file }} --clone-path /tmp/target-repo
+          if [ "${{ matrix.repo.file }}" != "null" ]; then
+            pnpm tsx src/cli.ts convert --repo-file ../${{ matrix.repo.file }} --clone-path /tmp/target-repo
+          else
+            pnpm tsx src/cli.ts convert --repo-name ${{ matrix.repo.name }} --clone-path /tmp/target-repo
+          fi
           
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

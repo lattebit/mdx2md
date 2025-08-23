@@ -20,21 +20,25 @@ async function generateMatrix() {
   
   // Process each repository from meta.json
   for (const [key, repoInfo] of Object.entries(meta.repositories)) {
-    const configFile = path.join(reposDir, repoInfo.configFile);
-    
-    // Check if config file exists
-    if (!fs.existsSync(configFile)) {
-      console.error(`Config file not found: ${configFile}`);
-      continue;
+    // If configFile is specified, check if it exists
+    if (repoInfo.configFile) {
+      const configFile = path.join(reposDir, repoInfo.configFile);
+      
+      // Check if config file exists
+      if (!fs.existsSync(configFile)) {
+        console.error(`Config file not found: ${configFile}`);
+        continue;
+      }
     }
     
     repos.push({
       name: key,
-      file: `repos/${repoInfo.configFile}`,
+      file: repoInfo.configFile ? `repos/${repoInfo.configFile}` : null,
       url: repoInfo.url,
       branch: repoInfo.branch,
       docsPath: repoInfo.docsPath,
-      output: repoInfo.outputPath
+      output: repoInfo.outputPath,
+      preset: repoInfo.preset
     });
   }
   
