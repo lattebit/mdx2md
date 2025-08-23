@@ -169,7 +169,7 @@ export function getConfig(repoPath: string, docsPath: string): Mdx2MdConfig {
   return {
     preset: 'fumadocs',
     source: join(repoPath, docsPath),
-    output: '/output/shadcn-ui',
+    output: '../output/shadcn-ui',
     outputMode: 'tree',
     include: ['**/*.mdx', '**/*.md'],
     exclude: ['node_modules/**', '.git/**', '**/meta.json'],

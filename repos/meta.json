@@ -5,14 +5,14 @@
       "branch": "main",
       "docsPath": "apps/www/content/docs",
       "configFile": "shadcn-ui.ts",
-      "outputPath": "/output/shadcn-ui"
+      "outputPath": "../output/shadcn-ui"
     },
     "nextjs": {
       "url": "https://github.com/vercel/next.js",
       "branch": "canary",
       "docsPath": "docs",
       "configFile": "nextjs.ts",
-      "outputPath": "/output/nextjs"
+      "outputPath": "../output/nextjs"
     }
   }
 }

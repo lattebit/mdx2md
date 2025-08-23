@@ -84,15 +84,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.repo.name }}-markdown
-          path: ${{ matrix.repo.output }}
+          path: output/${{ matrix.repo.name }}
           retention-days: 30
           
       - name: Summary
         if: always()
         run: |
           echo "### 📚 ${{ matrix.repo.name }}" >> $GITHUB_STEP_SUMMARY
-          if [ -d "${{ matrix.repo.output }}" ]; then
-            count=$(find "${{ matrix.repo.output }}" -name "*.md" | wc -l)
+          if [ -d "output/${{ matrix.repo.name }}" ]; then
+            count=$(find "output/${{ matrix.repo.name }}" -name "*.md" | wc -l)
             echo "✅ Converted ${count} files" >> $GITHUB_STEP_SUMMARY
           else
             echo "❌ Conversion failed" >> $GITHUB_STEP_SUMMARY
