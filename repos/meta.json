@@ -20,56 +20,48 @@
       "url": "https://github.com/TanStack/router",
       "branch": "main",
       "docsPath": "docs/router",
-      "configFile": "default-config.ts",
       "outputPath": "../output/tanstack-router"
     },
     "tanstack-start": {
       "url": "https://github.com/TanStack/router",
       "branch": "main",
       "docsPath": "docs/start",
-      "configFile": "default-config.ts",
       "outputPath": "../output/tanstack-start"
     },
     "react-router": {
       "url": "https://github.com/remix-run/react-router",
       "branch": "main",
       "docsPath": "docs",
-      "configFile": "default-config.ts",
       "outputPath": "../output/react-router"
     },
     "hono": {
       "url": "https://github.com/honojs/hono",
       "branch": "main",
       "docsPath": "docs",
-      "configFile": "default-config.ts",
       "outputPath": "../output/hono"
     },
     "express": {
       "url": "https://github.com/expressjs/express",
       "branch": "master",
       "docsPath": ".",
-      "configFile": "default-config.ts",
       "outputPath": "../output/express"
     },
     "expressjs": {
       "url": "https://github.com/expressjs/expressjs.com",
       "branch": "gh-pages",
       "docsPath": "en",
-      "configFile": "default-config.ts",
       "outputPath": "../output/expressjs"
     },
     "fastify": {
       "url": "https://github.com/fastify/fastify",
       "branch": "main",
       "docsPath": "docs",
-      "configFile": "default-config.ts",
       "outputPath": "../output/fastify"
     },
     "trpc": {
       "url": "https://github.com/trpc/trpc",
       "branch": "main",
       "docsPath": "www",
-      "configFile": "default-config.ts",
       "outputPath": "../output/trpc",
       "preset": "docusaurus"
     },
@@ -77,35 +69,30 @@
       "url": "https://github.com/unnoq/orpc",
       "branch": "main",
       "docsPath": ".",
-      "configFile": "default-config.ts",
       "outputPath": "../output/orpc"
     },
     "drizzle": {
       "url": "https://github.com/drizzle-team/drizzle-orm",
       "branch": "main",
       "docsPath": ".",
-      "configFile": "default-config.ts",
       "outputPath": "../output/drizzle"
     },
     "drizzle-orm-docs": {
       "url": "https://github.com/drizzle-team/drizzle-orm-docs",
       "branch": "main",
       "docsPath": "src/content",
-      "configFile": "default-config.ts",
       "outputPath": "../output/drizzle-orm-docs"
     },
     "prisma": {
       "url": "https://github.com/prisma/docs",
       "branch": "main",
       "docsPath": "content",
-      "configFile": "default-config.ts",
       "outputPath": "../output/prisma"
     },
     "turborepo": {
       "url": "https://github.com/vercel/turborepo",
       "branch": "main",
       "docsPath": "docs",
-      "configFile": "default-config.ts",
       "outputPath": "../output/turborepo",
       "preset": "fumadocs"
     },
@@ -113,7 +100,6 @@
       "url": "https://github.com/fuma-nama/fumadocs",
       "branch": "dev",
       "docsPath": "apps/docs",
-      "configFile": "default-config.ts",
       "outputPath": "../output/fumadocs",
       "preset": "fumadocs"
     },
@@ -121,21 +107,18 @@
       "url": "https://github.com/fastapi/fastapi",
       "branch": "master",
       "docsPath": "docs",
-      "configFile": "default-config.ts",
       "outputPath": "../output/fastapi"
     },
     "django": {
       "url": "https://github.com/django/django",
       "branch": "main",
       "docsPath": "docs",
-      "configFile": "default-config.ts",
       "outputPath": "../output/django"
     },
     "vue": {
       "url": "https://github.com/vuejs/docs",
       "branch": "main",
       "docsPath": "src",
-      "configFile": "default-config.ts",
       "outputPath": "../output/vue",
       "preset": "vitepress"
     },
@@ -143,14 +126,12 @@
       "url": "https://github.com/reduxjs/redux",
       "branch": "master",
       "docsPath": "docs",
-      "configFile": "default-config.ts",
       "outputPath": "../output/redux"
     },
     "tanstack": {
       "url": "https://github.com/TanStack/tanstack.com",
       "branch": "main",
       "docsPath": "app",
-      "configFile": "default-config.ts",
       "outputPath": "../output/tanstack"
     }
   }

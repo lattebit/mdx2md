@@ -1,6 +1,7 @@
 import type { Mdx2MdConfig } from './types/index.js'
 import { transform } from './transform.js'
 import { cloneRepository, cleanupTemp } from './utils/git.js'
+import { getConfig as getDefaultConfig } from './config/default-repo-config.js'
 import { join, resolve, dirname, basename } from 'path'
 import { fileURLToPath } from 'url'
 import { existsSync, readFileSync } from 'fs'
@@ -18,7 +19,7 @@ interface RepoMeta {
   url: string
   branch: string
   docsPath: string
-  configFile: string
+  configFile?: string // Optional, defaults to 'default-config.ts'
   outputPath: string
   preset?: string
 }
@@ -36,10 +37,18 @@ function loadRepoMeta(configFile: string): RepoMeta | null {
   
   // Find repository info by config file
   const configFileName = basename(configFile)
+  
+  // First try to match by explicit configFile
   for (const [key, repoInfo] of Object.entries(meta.repositories)) {
     if ((repoInfo as any).configFile === configFileName) {
       return repoInfo as RepoMeta
     }
+  }
+  
+  // Then try to match by repository name (for default configs)
+  const nameFromFile = configFileName.replace('.ts', '')
+  if (meta.repositories[nameFromFile]) {
+    return meta.repositories[nameFromFile] as RepoMeta
   }
   
   return null
@@ -48,20 +57,26 @@ function loadRepoMeta(configFile: string): RepoMeta | null {
 export async function processRepository(options: RepoProcessOptions): Promise<void> {
   console.log(`Processing repository with config: ${options.configFile}`)
   
-  // Load the repository configuration
-  const configPath = resolve(options.configFile)
-  if (!existsSync(configPath)) {
-    throw new Error(`Config file not found: ${configPath}`)
-  }
-  
   // Load repository metadata from meta.json
   const repoMeta = loadRepoMeta(options.configFile)
   if (!repoMeta) {
     throw new Error(`Repository metadata not found for config: ${options.configFile}`)
   }
   
-  // Import the TypeScript config
-  const configModule = await import(configPath)
+  let configModule: any
+  
+  // Check if a custom config file is specified
+  if (repoMeta.configFile && repoMeta.configFile !== 'default-config.ts') {
+    const configPath = resolve(dirname(dirname(__dirname)), 'repos', repoMeta.configFile)
+    if (!existsSync(configPath)) {
+      throw new Error(`Config file not found: ${configPath}`)
+    }
+    configModule = await import(configPath)
+  } else {
+    // Use the internal default config
+    configModule = { getConfig: getDefaultConfig }
+  }
+  
   const config: Mdx2MdConfig = configModule.default
   
   let repoPath: string
