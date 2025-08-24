@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/element-plus/element-plus",
+  "branch": "master",
+  "docsPath": "docs",
+  "outputPath": "output/element-plus",
+  "preset": "vitepress"
+}
