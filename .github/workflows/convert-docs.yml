@@ -1,4 +1,4 @@
-name: Convert Documentation (Dynamic)
+name: Convert All Documentation (Main)
 
 on:
   schedule:
@@ -7,12 +7,17 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'repos/**'
       - 'mdx2md/src/**'
       - '.github/workflows/convert-docs.yml'
+  # Trigger after PR merge to main
+  pull_request:
+    branches: [ main ]
+    types: [ closed ]
 
 jobs:
   generate-matrix:
+    # Only run on main branch (not on PRs unless merged)
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     name: Generate Matrix
     runs-on: ubuntu-latest
     outputs:
