@@ -1,4 +1,3 @@
-import type { Mdx2MdConfig } from './types/index.js'
 import { transform } from './transform.js'
 import { cloneRepository, cleanupTemp } from './utils/git.js'
 import { getConfig as getDefaultConfig } from './config/default-repo-config.js'
@@ -39,7 +38,7 @@ function loadRepoMeta(configFile: string): RepoMeta | null {
   const configFileName = basename(configFile)
   
   // First try to match by explicit configFile
-  for (const [key, repoInfo] of Object.entries(meta.repositories)) {
+  for (const [, repoInfo] of Object.entries(meta.repositories)) {
     if ((repoInfo as any).configFile === configFileName) {
       return repoInfo as RepoMeta
     }
@@ -57,8 +56,53 @@ function loadRepoMeta(configFile: string): RepoMeta | null {
 export async function processRepository(options: RepoProcessOptions): Promise<void> {
   console.log(`Processing repository with config: ${options.configFile}`)
   
-  // Load repository metadata from meta.json
+  // Try to load repository metadata from meta.json
   const repoMeta = loadRepoMeta(options.configFile)
+  
+  // If no metadata found and we have a clone path, use default config directly
+  if (!repoMeta && options.clonePath) {
+    console.log('No repository metadata found, using default configuration')
+    
+    if (!existsSync(options.clonePath)) {
+      throw new Error(`Clone path does not exist: ${options.clonePath}`)
+    }
+    
+    // Use default config with sensible defaults
+    const config = getDefaultConfig(options.clonePath, 'docs', 'fumadocs')
+    
+    console.log(`Source: ${config.source}`)
+    console.log(`Output: ${config.output}`)
+    
+    // Verify source directory exists
+    if (!existsSync(config.source)) {
+      // Try common documentation directories
+      const possibleDirs = ['docs', '.', 'documentation', 'doc']
+      let foundDir = null
+      
+      for (const dir of possibleDirs) {
+        const testPath = join(options.clonePath, dir)
+        if (existsSync(testPath)) {
+          foundDir = dir
+          break
+        }
+      }
+      
+      if (foundDir) {
+        const adjustedConfig = getDefaultConfig(options.clonePath, foundDir, 'fumadocs')
+        console.log(`Adjusted source: ${adjustedConfig.source}`)
+        await transform(adjustedConfig)
+        console.log(`✓ Successfully processed repository`)
+      } else {
+        throw new Error(`Source directory not found. Tried: ${possibleDirs.join(', ')}`)
+      }
+    } else {
+      await transform(config)
+      console.log(`✓ Successfully processed repository`)
+    }
+    
+    return
+  }
+  
   if (!repoMeta) {
     throw new Error(`Repository metadata not found for config: ${options.configFile}`)
   }
@@ -76,8 +120,6 @@ export async function processRepository(options: RepoProcessOptions): Promise<vo
     // Use the internal default config
     configModule = { getConfig: getDefaultConfig }
   }
-  
-  const config: Mdx2MdConfig = configModule.default
   
   let repoPath: string
   let shouldCleanup = false
