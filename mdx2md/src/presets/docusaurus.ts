@@ -3,10 +3,16 @@ import type { Preset, VFile } from '../types/index.js'
 import { visit } from 'unist-util-visit'
 import { createPreset } from './base.js'
 import { createAdmonition, createTabs } from '../umr/index.js'
+import { getJsxAttributes } from '../utils/jsx-attributes.js'
 
 export const docusaurusPreset: Preset = createPreset({
   name: 'docusaurus',
   transformers: [
+    {
+      name: 'docusaurus-preprocessor',
+      phase: 'pre',
+      transform: (_tree: Root, file: VFile) => preprocessDocusaurus(file)
+    },
     {
       name: 'docusaurus-components',
       phase: 'main',
@@ -30,6 +36,43 @@ export const docusaurusPreset: Preset = createPreset({
     fenceLength: 3
   }
 })
+
+function preprocessDocusaurus(file: VFile): void {
+  const content = String(file.contents)
+  
+  // Convert HTML comments to MDX comments
+  let processedContent = content.replace(
+    /<!--\s*(.*?)\s*-->/gs,
+    (match, content) => {
+      // Preserve empty comments and special markers
+      if (!content || content.trim() === '') return '{/* */}'
+      // Check for special markers that should be preserved
+      if (content.includes('prettier-ignore') || 
+          content.includes('markdownlint-disable') ||
+          content.includes('TODO') ||
+          content.includes('FIXME')) {
+        return `{/* ${content.trim()} */}`
+      }
+      return `{/* ${content.trim()} */}`
+    }
+  )
+  
+  // Convert Docusaurus anchor syntax {#anchor} to standard markdown
+  // This appears in headers and needs to be removed
+  processedContent = processedContent.replace(
+    /^(#{1,6})\s+(.+?)\s*\{#([^}]+)\}\s*$/gm,
+    '$1 $2'
+  )
+  
+  // Also handle inline anchor syntax
+  processedContent = processedContent.replace(
+    /\{#([^}]+)\}/g,
+    ''
+  )
+  
+  // Update file contents with processed content  
+  file.contents = processedContent
+}
 
 function transformDocusaurusComponents(tree: Root): void {
   // Track if we're inside Tabs component
@@ -271,7 +314,7 @@ function handleAdmonitionComponent(node: any) {
 function getAttributes(node: any): Record<string, any> {
   const attrs: Record<string, any> = {}
   
-  if (node.attributes) {
+  if (node.attributes && Array.isArray(node.attributes)) {
     for (const attr of node.attributes) {
       if (attr.type === 'mdxJsxAttribute') {
         const name = attr.name

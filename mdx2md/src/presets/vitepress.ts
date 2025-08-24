@@ -3,10 +3,16 @@ import type { Preset, VFile } from '../types/index.js'
 import { visit } from 'unist-util-visit'
 import { createPreset } from './base.js'
 import { createAdmonition, createTabs } from '../umr/index.js'
+import { getJsxAttributes } from '../utils/jsx-attributes.js'
 
 export const vitepressPreset: Preset = createPreset({
   name: 'vitepress',
   transformers: [
+    {
+      name: 'vitepress-preprocessor',
+      phase: 'pre',
+      transform: (_tree: Root, file: VFile) => preprocessVitePress(file)
+    },
     {
       name: 'vitepress-components',
       phase: 'main',
@@ -30,6 +36,98 @@ export const vitepressPreset: Preset = createPreset({
     fenceLength: 3
   }
 })
+
+function preprocessVitePress(file: VFile): void {
+  const content = String(file.contents)
+  
+  // Extract and store script tags
+  const scriptRegex = /<script\b[^>]*>[\s\S]*?<\/script>/gi
+  const styleRegex = /<style\b[^>]*>[\s\S]*?<\/style>/gi
+  
+  const scripts: string[] = []
+  const styles: string[] = []
+  
+  // Extract scripts
+  let scriptMatch
+  while ((scriptMatch = scriptRegex.exec(content)) !== null) {
+    scripts.push(scriptMatch[0])
+  }
+  
+  // Extract styles
+  let styleMatch
+  while ((styleMatch = styleRegex.exec(content)) !== null) {
+    styles.push(styleMatch[0])
+  }
+  
+  // Remove script and style tags from content
+  let processedContent = content
+    .replace(scriptRegex, '')
+    .replace(styleRegex, '')
+  
+  // Convert VitePress anchor syntax {#anchor} to standard markdown
+  processedContent = processedContent.replace(
+    /^(#{1,6})\s+(.+?)\s*\{#([^}]+)\}\s*$/gm,
+    '$1 $2'
+  )
+  
+  // Convert HTML comments to MDX comments
+  processedContent = processedContent.replace(
+    /<!--\s*(.*?)\s*-->/gs,
+    (match, content) => {
+      // Skip markers we use internally
+      if (content.includes('CLIENT_ONLY')) return match
+      return `{/* ${content.trim()} */}`
+    }
+  )
+  
+  // Handle Vue template syntax - escape @ symbols in certain contexts
+  processedContent = processedContent.replace(
+    /<(\w+)([^>]*?)(@\w+)([^>]*?)>/g,
+    (match, tag, before, vueDir, after) => {
+      // Convert Vue directives to data attributes for preservation
+      const directive = vueDir.replace('@', 'v-on-')
+      return `<${tag}${before}data-${directive}${after}>`
+    }
+  )
+  
+  // Handle VitePress-specific div containers with classes
+  processedContent = processedContent.replace(
+    /<div\s+class="(composition-api|options-api)">/g,
+    '\n::: $1\n'
+  ).replace(
+    /<\/div>\s*(?=<div\s+class="(?:composition-api|options-api)">|$)/g,
+    '\n:::\n'
+  )
+  
+  // Also handle Vue-specific components that aren't valid MDX
+  // Replace <ClientOnly> with a marker that we can restore later
+  processedContent = processedContent
+    .replace(/<ClientOnly>/g, '<!-- CLIENT_ONLY_START -->')
+    .replace(/<\/ClientOnly>/g, '<!-- CLIENT_ONLY_END -->')
+  
+  // Replace VueSchoolLink and other Vue components with markdown equivalents
+  processedContent = processedContent.replace(
+    /<VueSchoolLink\s+href="([^"]+)"\s+title="([^"]+)"\s*\/>/g,
+    '[$2]($1)'
+  )
+  
+  // Replace Teleport and other Vue built-in components
+  processedContent = processedContent.replace(
+    /<Teleport\s+to="([^"]+)">/g,
+    '<!-- TELEPORT_TO:$1 -->'
+  ).replace(
+    /<\/Teleport>/g,
+    '<!-- /TELEPORT -->'
+  )
+  
+  // Store extracted content in file.data for later use if needed
+  file.data = file.data || {}
+  file.data.vitepressScripts = scripts
+  file.data.vitepressStyles = styles
+  
+  // Update file contents with processed content
+  file.contents = processedContent
+}
 
 function transformVitePressComponents(tree: Root): void {
   // Track if we're inside a code-group
@@ -172,37 +270,7 @@ function extractCodeLabel(meta: string | null | undefined): string | null {
 }
 
 function getAttributes(node: any): Record<string, any> {
-  const attrs: Record<string, any> = {}
-  
-  if (node.attributes) {
-    for (const attr of node.attributes) {
-      if (attr.type === 'mdxJsxAttribute') {
-        const name = attr.name
-        const value = attr.value
-        
-        if (typeof value === 'string') {
-          attrs[name] = value
-        } else if (value && value.type === 'mdxJsxAttributeValueExpression') {
-          if (value.value && typeof value.value === 'string') {
-            try {
-              attrs[name] = JSON.parse(value.value)
-            } catch {
-              attrs[name] = value.value
-            }
-          }
-        } else if (value === null || value === true) {
-          attrs[name] = true
-        }
-      }
-    }
-  }
-  
-  // Also check for directive labels
-  if (node.label) {
-    attrs.label = node.label
-  }
-  
-  return attrs
+  return getJsxAttributes(node)
 }
 
 function getChildren(node: any): any[] {

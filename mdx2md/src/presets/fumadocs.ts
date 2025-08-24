@@ -10,6 +10,7 @@ import {
   createUnknownComponent,
   createCodeGroup
 } from '../umr/index.js'
+import { getJsxAttributes } from '../utils/jsx-attributes.js'
 
 export const fumadocsPreset: Preset = createPreset({
   name: 'fumadocs',
@@ -464,7 +465,7 @@ function handleAccordion(node: any) {
 function getAttributes(node: any): Record<string, any> {
   const attrs: Record<string, any> = {}
   
-  if (node.attributes) {
+  if (node.attributes && Array.isArray(node.attributes)) {
     for (const attr of node.attributes) {
       if (attr.type === 'mdxJsxAttribute') {
         const name = attr.name

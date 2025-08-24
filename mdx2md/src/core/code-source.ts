@@ -134,7 +134,7 @@ function loadCodeSource(node: any, config: any, componentType: string): any {
 function getAttributes(node: any): Record<string, any> {
   const attrs: Record<string, any> = {}
   
-  if (node.attributes) {
+  if (node.attributes && Array.isArray(node.attributes)) {
     for (const attr of node.attributes) {
       if (attr.type === 'mdxJsxAttribute') {
         const name = attr.name
