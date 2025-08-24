@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/sequelize/website",
+  "branch": "main",
+  "docsPath": "docs",
+  "outputPath": "output/sequelize",
+  "preset": "docusaurus"
+}
