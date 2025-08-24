@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/vuejs/docs",
+  "branch": "main",
+  "docsPath": "src",
+  "outputPath": "output/vue",
+  "preset": "vitepress"
+}
