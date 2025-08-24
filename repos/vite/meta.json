@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/vitejs/vite",
+  "branch": "main",
+  "docsPath": "docs",
+  "outputPath": "output/vite",
+  "preset": "vitepress"
+}
