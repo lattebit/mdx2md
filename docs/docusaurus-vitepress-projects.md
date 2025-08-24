@@ -12,27 +12,27 @@
 
 ### Tier 1 - Critical/Most Popular (Daily/Weekly Active Use)
 
-- [ ] **React** - https://github.com/facebook/react
+- [x] **React** - https://github.com/facebook/react
   - Separate repo: `reactjs/react.dev`
   - Most popular UI library
   - Essential for web development
 
-- [ ] **Jest** - https://github.com/facebook/jest
+- [x] **Jest** - https://github.com/facebook/jest
   - Path: `/website`
   - Most popular JavaScript testing framework
   - Used by millions of projects
 
-- [ ] **Docusaurus** - https://github.com/facebook/docusaurus
+- [x] **Docusaurus** - https://github.com/facebook/docusaurus
   - Path: `/website`
   - Meta - documentation framework itself
   - Understanding it helps process others
 
-- [ ] **Redux** - https://github.com/reduxjs/redux
+- [x] **Redux** - https://github.com/reduxjs/redux
   - Separate repo: `reduxjs/redux-toolkit`
   - Most popular state management
   - Core to React ecosystem
 
-- [ ] **Playwright** - https://github.com/microsoft/playwright
+- [x] **Playwright** - https://github.com/microsoft/playwright
   - Path: `/docs`
   - Modern E2E testing, growing rapidly
   - Microsoft-backed, replacing older tools

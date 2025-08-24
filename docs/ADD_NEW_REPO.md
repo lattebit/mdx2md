@@ -157,6 +157,31 @@ git push origin repos/vue
 - [ ] 输出路径遵循 `output/仓库名` 格式
 - [ ] 如有自定义配置，`configFile` 字段指向正确文件
 
+## 已知问题和注意事项
+
+### 常见配置问题
+1. **分支名称**：注意某些仓库使用 `master` 而非 `main`（如 Redux）
+2. **文档路径**：
+   - React: `src/content` (不是 `docs`)
+   - Jest: `website` (不是 `docs`)
+   - Docusaurus: `website/docs`
+   - Redux: `docs`
+   - Playwright: `docs`
+
+### 转换成功率参考
+基于 Tier 1 项目的测试结果：
+- React: 129/191 文件 (67.5%)
+- Jest: 28/96 文件 (29.2%)
+- Docusaurus: 2/90 文件 (2.2%)
+- Redux: 48/85 文件 (56.5%)
+- Playwright: 44/172 文件 (25.6%)
+
+转换成功率较低通常是由于：
+- 复杂的 MDX/JSX 组件使用
+- HTML 注释语法（需要转换为 `{/* */}`）
+- 特殊字符转义问题
+- 内联样式中的引号问题
+
 ## 常见问题
 
 **Q: 如何确定使用哪个 preset？**
@@ -170,6 +195,14 @@ git push origin repos/vue
 2. 验证文档路径是否正确
 3. 确认仓库和分支可访问
 4. 检查 meta.json 格式
+
+**Q: MDX 解析错误如何处理？**
+转换过程中常见的 MDX 解析错误类型：
+- **Parse Error**: 无法处理的 MDX/JSX 节点类型
+- **Syntax Error**: 特殊字符转义问题（如 HTML 注释 `<!--` 在 MDX 中需要用 `{/* */}`）
+- **MDX Expression Parse Error**: 无效的 JavaScript 表达式或未闭合的大括号
+
+这些错误不会阻止转换，失败的文件会保留原始内容并添加警告头部。
 
 **Q: 如何手动测试单个仓库？**
 
