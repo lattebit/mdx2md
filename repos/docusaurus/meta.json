@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/facebook/docusaurus",
+  "branch": "main",
+  "docsPath": "website/docs",
+  "outputPath": "output/docusaurus",
+  "preset": "docusaurus"
+}
