@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/drizzle-team/drizzle-orm",
+  "branch": "main",
+  "docsPath": "docs",
+  "outputPath": "output/drizzle",
+  "preset": "docusaurus"
+}
