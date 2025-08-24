@@ -50,7 +50,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd mdx2md
-          pnpm install --frozen-lockfile
+          pnpm install
         
       - id: generate
         name: Generate matrix from repos/
@@ -101,7 +101,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd mdx2md
-          pnpm install --frozen-lockfile
+          pnpm install
         
       - name: Clone target repository
         run: |
