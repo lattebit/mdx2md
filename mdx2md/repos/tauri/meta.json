@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/tauri-apps/tauri-docs",
+  "branch": "v2",
+  "docsPath": "src/content/docs",
+  "outputPath": "output/tauri",
+  "preset": "docusaurus"
+}
