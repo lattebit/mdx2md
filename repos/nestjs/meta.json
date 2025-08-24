@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/nestjs/docs.nestjs.com",
+  "branch": "master",
+  "docsPath": "content",
+  "outputPath": "output/nestjs",
+  "preset": "docusaurus"
+}
