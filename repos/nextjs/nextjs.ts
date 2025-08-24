@@ -1,4 +1,4 @@
-import type { Mdx2MdConfig } from '../mdx2md/src/types/index.js'
+import type { Mdx2MdConfig } from '../../mdx2md/src/types/index.js'
 import { join } from 'path'
 
 // Export a function that returns the config with dynamic values

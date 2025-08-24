@@ -1,4 +1,4 @@
-import type { Mdx2MdConfig } from '../mdx2md/src/types/index.js'
+import type { Mdx2MdConfig } from '../../mdx2md/src/types/index.js'
 import { createRequire } from 'module'
 import { join } from 'path'
 import { fileURLToPath } from 'url'

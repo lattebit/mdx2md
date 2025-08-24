@@ -102,7 +102,9 @@ export async function processRepository(options: RepoProcessOptions): Promise<vo
     if (!existsSync(configPath)) {
       throw new Error(`Config file not found: ${configPath}`)
     }
-    configModule = await import(configPath)
+    // Convert absolute path to file:// URL for dynamic import
+    const fileUrl = new URL(`file://${configPath}`).href
+    configModule = await import(fileUrl)
   } else {
     // Use the internal default config
     configModule = { getConfig: getDefaultConfig }
