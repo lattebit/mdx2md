@@ -100,6 +100,15 @@ jobs:
           echo "Current directory: $(pwd)"
           echo "Checking for output directories..."
           
+          # Check if output exists in mdx2md directory
+          if [ -d "mdx2md/output" ]; then
+            echo "Found output directory at mdx2md/output:"
+            ls -la mdx2md/output/
+            
+            # Move output to repository root
+            mv mdx2md/output ./output
+          fi
+          
           # Check if output exists at repository root
           if [ -d "output" ]; then
             echo "Found output directory at repository root:"

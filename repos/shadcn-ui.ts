@@ -119,8 +119,8 @@ try {
     writeFileSync(tempScript, scriptContent)
     
     try {
-      // Execute the script with tsx
-      const result = execSync(`npx tsx ${tempScript}`, {
+      // Execute the script with bun
+      const result = execSync(`bun ${tempScript}`, {
         cwd: repoPath,
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe']
