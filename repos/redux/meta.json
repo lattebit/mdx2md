@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/reduxjs/redux",
+  "branch": "master",
+  "docsPath": "docs",
+  "outputPath": "output/redux",
+  "preset": "docusaurus"
+}
