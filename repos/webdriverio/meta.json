@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/webdriverio/webdriverio",
+  "branch": "main",
+  "docsPath": "website/docs",
+  "outputPath": "output/webdriverio",
+  "preset": "docusaurus"
+}
