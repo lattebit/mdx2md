@@ -31,16 +31,19 @@ export function createProcessor(options: ProcessorOptions) {
     // Create core passes
     const corePasses = await createCorePasses(corePassConfig)
     
-    // Parse
-    const parser = createParser()
-    let tree = await parser.parse(file.contents) as Root
-    
-    // Pre-phase transformers
+    // Pre-phase transformers that modify file content (preprocessing)
+    // These must run BEFORE parsing
     for (const transformer of preset.transformers) {
       if (transformer.phase === 'pre') {
-        await transformer.transform(tree, file)
+        // Create a dummy tree for preprocessing transformers that only modify file.contents
+        const dummyTree: Root = { type: 'root', children: [] }
+        await transformer.transform(dummyTree, file)
       }
     }
+    
+    // Parse (after preprocessing)
+    const parser = createParser()
+    let tree = await parser.parse(file.contents) as Root
     
     // Core pre passes (including codeSource which must run before main transformers)
     for (const pass of corePasses.filter(p => 

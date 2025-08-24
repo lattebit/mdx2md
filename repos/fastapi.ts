@@ -5,7 +5,7 @@ import { join } from 'path'
 export function getConfig(repoPath: string, docsPath: string): Mdx2MdConfig {
   return {
     preset: 'mkdocs',
-    source: join(repoPath, docsPath),
+    source: join(repoPath, docsPath, 'docs'), // MkDocs stores docs in 'docs' subdirectory
     output: 'output/fastapi',
     outputMode: 'tree',
     include: ['**/*.md'],

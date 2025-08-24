@@ -2,6 +2,7 @@ import type { Root } from 'mdast'
 import type { Preset, VFile } from '../types/index.js'
 import { visit } from 'unist-util-visit'
 import { createPreset } from './base.js'
+import { commonPreprocess } from './common-preprocess.js'
 import {
   createAdmonition,
   createTabs
@@ -9,7 +10,13 @@ import {
 
 export const mkdocsPreset: Preset = createPreset({
   name: 'mkdocs',
+  skipCommonPreprocess: true, // We have our own preprocessing
   transformers: [
+    {
+      name: 'mkdocs-preprocess',
+      phase: 'pre',
+      transform: (_tree: Root, file: VFile) => preprocessMkdocsContent(file)
+    },
     {
       name: 'mkdocs-components',
       phase: 'main',
@@ -33,6 +40,55 @@ export const mkdocsPreset: Preset = createPreset({
     fenceLength: 3
   }
 })
+
+// Preprocess MkDocs content to handle special syntax
+function preprocessMkdocsContent(file: VFile): void {
+  // First apply common preprocessing
+  commonPreprocess(file)
+  
+  if (typeof file.contents === 'string') {
+    let content = file.contents
+    
+    // Handle MkDocs' /// admonition syntax by converting to standard ::: 
+    // This makes it compatible with remark-directive
+    const lines = content.split('\n')
+    const processedLines: string[] = []
+    let inAdmonition = false
+    let admonitionIndent = 0
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
+      const trimmed = line.trim()
+      
+      // Check for admonition start
+      if (trimmed.startsWith('///')) {
+        const match = trimmed.match(/^\/\/\/\s*(\w+)?(.*)$/)
+        if (match) {
+          const [, type, rest] = match
+          if (type && !inAdmonition) {
+            // Start of admonition
+            inAdmonition = true
+            admonitionIndent = line.indexOf('/')
+            processedLines.push(' '.repeat(admonitionIndent) + `:::${type}${rest}`)
+          } else if (inAdmonition && trimmed === '///') {
+            // End of admonition
+            inAdmonition = false
+            processedLines.push(' '.repeat(admonitionIndent) + ':::')
+            admonitionIndent = 0
+          } else {
+            processedLines.push(line)
+          }
+        } else {
+          processedLines.push(line)
+        }
+      } else {
+        processedLines.push(line)
+      }
+    }
+    
+    file.contents = processedLines.join('\n')
+  }
+}
 
 function transformMkdocsComponents(tree: Root, _file: VFile): void {
   // Transform MkDocs-style admonitions/callouts
@@ -187,7 +243,7 @@ function handleMkdocsTabs(node: any) {
 function getAttributes(node: any): Record<string, any> {
   const attrs: Record<string, any> = {}
   
-  if (node.attributes) {
+  if (node.attributes && Array.isArray(node.attributes)) {
     for (const attr of node.attributes) {
       if (attr.type === 'mdxJsxAttribute') {
         const name = attr.name

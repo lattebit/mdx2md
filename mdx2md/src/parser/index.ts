@@ -3,6 +3,7 @@ import remarkParse from 'remark-parse'
 import remarkMdx from 'remark-mdx'
 import remarkGfm from 'remark-gfm'
 import remarkFrontmatter from 'remark-frontmatter'
+import remarkDirective from 'remark-directive'
 import type { Root } from 'mdast'
 import type { VFile } from '../types/index.js'
 
@@ -12,6 +13,7 @@ export function createParser() {
     .use(remarkMdx)
     .use(remarkGfm)
     .use(remarkFrontmatter, ['yaml', 'toml'])
+    .use(remarkDirective) // Support ::: container syntax
 }
 
 export async function parse(content: string, path?: string): Promise<Root> {

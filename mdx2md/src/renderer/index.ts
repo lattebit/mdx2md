@@ -142,15 +142,17 @@ function renderTabs(node: UMRNode, props: any): Content[] {
     } as Paragraph)
   }
   
-  // Render each tab's content
-  for (const item of items) {
+  // Render each tab's content with better formatting
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]
+    
     result.push({
       type: 'heading',
       depth: 4,
       children: [
         {
           type: 'text',
-          value: `📑 ${item.label}`
+          value: item.label
         }
       ]
     } as Heading)
@@ -174,6 +176,13 @@ function renderTabs(node: UMRNode, props: any): Content[] {
     }
     
     result.push(...processedContent)
+    
+    // Add separator between tabs (except for last)
+    if (i < items.length - 1) {
+      result.push({
+        type: 'thematicBreak'
+      } as any)
+    }
   }
   
   result.push({

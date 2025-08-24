@@ -40,7 +40,7 @@
     "fastapi": {
       "url": "https://github.com/fastapi/fastapi",
       "branch": "master",
-      "docsPath": "docs/en/docs",
+      "docsPath": "docs/en",
       "configFile": "fastapi.ts",
       "outputPath": "output/fastapi",
       "preset": "mkdocs"
