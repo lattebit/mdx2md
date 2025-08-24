@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/vercel/next.js",
+  "branch": "canary",
+  "docsPath": "docs",
+  "configFile": "nextjs.ts",
+  "outputPath": "output/nextjs",
+  "preset": "fumadocs"
+}

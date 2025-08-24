@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/prisma/docs",
+  "branch": "main",
+  "docsPath": ".",
+  "outputPath": "output/prisma",
+  "preset": "docusaurus"
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/shadcn-ui/ui",
+  "branch": "main",
+  "docsPath": "apps/www/content/docs",
+  "configFile": "shadcn-ui.ts",
+  "outputPath": "output/shadcn-ui",
+  "preset": "fumadocs"
+}

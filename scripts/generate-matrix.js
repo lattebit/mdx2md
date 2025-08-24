@@ -5,40 +5,42 @@ const path = require('path');
 
 async function generateMatrix() {
   const reposDir = path.join(process.cwd(), 'repos');
-  const metaPath = path.join(reposDir, 'meta.json');
-  
-  if (!fs.existsSync(metaPath)) {
-    console.error('repos/meta.json not found');
-    process.exit(1);
-  }
-  
-  // Read meta.json
-  const metaContent = fs.readFileSync(metaPath, 'utf-8');
-  const meta = JSON.parse(metaContent);
-  
   const repos = [];
   
-  // Process each repository from meta.json
-  for (const [key, repoInfo] of Object.entries(meta.repositories)) {
-    // If configFile is specified, check if it exists
-    if (repoInfo.configFile) {
-      const configFile = path.join(reposDir, repoInfo.configFile);
-      
-      // Check if config file exists
-      if (!fs.existsSync(configFile)) {
-        console.error(`Config file not found: ${configFile}`);
-        continue;
+  // Read all directories in repos/
+  const dirs = fs.readdirSync(reposDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+  
+  // For each directory, read its meta.json
+  for (const dir of dirs) {
+    const metaPath = path.join(reposDir, dir, 'meta.json');
+    
+    if (!fs.existsSync(metaPath)) {
+      console.error(`meta.json not found for ${dir}`);
+      continue;
+    }
+    
+    const metaContent = fs.readFileSync(metaPath, 'utf-8');
+    const meta = JSON.parse(metaContent);
+    
+    // Check if a config file exists
+    let file = null;
+    if (meta.configFile) {
+      const configPath = path.join(reposDir, dir, meta.configFile);
+      if (fs.existsSync(configPath)) {
+        file = path.join('repos', dir, meta.configFile);
       }
     }
     
     repos.push({
-      name: key,
-      file: repoInfo.configFile ? `repos/${repoInfo.configFile}` : null,
-      url: repoInfo.url,
-      branch: repoInfo.branch,
-      docsPath: repoInfo.docsPath,
-      output: repoInfo.outputPath,
-      preset: repoInfo.preset
+      name: dir,
+      file: file,
+      url: meta.url,
+      branch: meta.branch,
+      docsPath: meta.docsPath,
+      output: meta.outputPath,
+      preset: meta.preset
     });
   }
   

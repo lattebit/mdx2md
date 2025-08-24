@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/trpc/trpc",
+  "branch": "main",
+  "docsPath": "www",
+  "outputPath": "output/trpc",
+  "preset": "docusaurus"
+}

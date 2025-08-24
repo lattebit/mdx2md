@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/honojs/website",
+  "branch": "main",
+  "docsPath": ".",
+  "outputPath": "output/hono",
+  "preset": "vitepress"
+}
