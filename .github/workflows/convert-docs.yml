@@ -88,16 +88,21 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.repo.name }}-markdown
-          path: output/${{ matrix.repo.name }}
+          path: ../output/${{ matrix.repo.name }}
           retention-days: 30
+          if-no-files-found: warn
           
       - name: Summary
         if: always()
         run: |
           echo "### 📚 ${{ matrix.repo.name }}" >> $GITHUB_STEP_SUMMARY
-          if [ -d "output/${{ matrix.repo.name }}" ]; then
+          # Output is relative to repo root, not mdx2md directory
+          if [ -d "../output/${{ matrix.repo.name }}" ]; then
+            count=$(find "../output/${{ matrix.repo.name }}" -name "*.md" | wc -l)
+            echo "✅ Converted ${count} files" >> $GITHUB_STEP_SUMMARY
+          elif [ -d "output/${{ matrix.repo.name }}" ]; then
             count=$(find "output/${{ matrix.repo.name }}" -name "*.md" | wc -l)
             echo "✅ Converted ${count} files" >> $GITHUB_STEP_SUMMARY
           else
-            echo "❌ Conversion failed" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Conversion failed or no output found" >> $GITHUB_STEP_SUMMARY
           fi
