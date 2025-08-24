@@ -63,12 +63,18 @@ importers:
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
+      '@types/mdast':
+        specifier: ^4.0.4
+        version: 4.0.4
       '@types/micromatch':
         specifier: ^4.0.9
         version: 4.0.9
       '@types/node':
         specifier: ^20.0.0
         version: 20.19.11
+      '@types/unist':
+        specifier: ^3.0.3
+        version: 3.0.3
       tsx:
         specifier: ^4.0.0
         version: 4.20.4

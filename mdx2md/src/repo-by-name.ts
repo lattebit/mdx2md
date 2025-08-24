@@ -13,7 +13,7 @@ export interface ProcessByNameOptions {
 }
 
 export async function processRepositoryByName(options: ProcessByNameOptions): Promise<void> {
-  // Load meta.json
+  // Load meta.json - go up from src to project root
   const metaPath = resolve(dirname(dirname(__dirname)), 'repos', 'meta.json')
   if (!existsSync(metaPath)) {
     throw new Error('repos/meta.json not found')

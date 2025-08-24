@@ -25,7 +25,7 @@ interface RepoMeta {
 }
 
 function loadRepoMeta(configFile: string): RepoMeta | null {
-  // Load meta.json
+  // Load meta.json - go up from src to project root
   const metaPath = resolve(dirname(dirname(__dirname)), 'repos', 'meta.json')
   if (!existsSync(metaPath)) {
     console.error('repos/meta.json not found')
