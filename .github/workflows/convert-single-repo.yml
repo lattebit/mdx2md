@@ -142,19 +142,8 @@ jobs:
           cd mdx2md
           REPO_NAME="${{ needs.detect-repo.outputs.repo_name }}"
           
-          # Check if custom config file exists
-          if [ "${{ steps.parse.outputs.config_file }}" != "null" ] && \
-             [ -f "../repos/$REPO_NAME/${{ steps.parse.outputs.config_file }}" ]; then
-            echo "Using custom config: repos/$REPO_NAME/${{ steps.parse.outputs.config_file }}"
-            bun src/cli.ts convert \
-              --repo-file ../repos/$REPO_NAME/${{ steps.parse.outputs.config_file }} \
-              --clone-path /tmp/target-repo
-          else
-            echo "Using meta.json: repos/$REPO_NAME/meta.json"
-            bun src/cli.ts convert \
-              --repo-file ../repos/$REPO_NAME/meta.json \
-              --clone-path /tmp/target-repo
-          fi
+          echo "Converting repository: $REPO_NAME"
+          bun src/cli.ts convert --repo-name $REPO_NAME --clone-path /tmp/target-repo
           
       - name: Prepare artifacts
         run: |

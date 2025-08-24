@@ -93,12 +93,7 @@ jobs:
       - name: Convert ${{ matrix.repo.name }}
         run: |
           cd mdx2md
-          if [ "${{ matrix.repo.file }}" != "null" ]; then
-            bun src/cli.ts convert --repo-file ../${{ matrix.repo.file }} --clone-path /tmp/target-repo
-          else
-            # Use the repo's meta.json directly
-            bun src/cli.ts convert --repo-file ../repos/${{ matrix.repo.name }}/meta.json --clone-path /tmp/target-repo
-          fi
+          bun src/cli.ts convert --repo-name ${{ matrix.repo.name }} --clone-path /tmp/target-repo
           
       - name: Prepare artifacts
         run: |
