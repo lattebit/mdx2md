@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/vercel/turborepo",
+  "branch": "main",
+  "docsPath": "docs/site",
+  "outputPath": "output/turborepo",
+  "preset": "fumadocs"
+}
