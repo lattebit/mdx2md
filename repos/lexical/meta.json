@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/facebook/lexical",
+  "branch": "main",
+  "docsPath": "packages/lexical-website/docs",
+  "outputPath": "output/lexical",
+  "preset": "docusaurus"
+}
