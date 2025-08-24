@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/microsoft/playwright",
+  "branch": "main",
+  "docsPath": "docs",
+  "outputPath": "output/playwright",
+  "preset": "docusaurus"
+}
