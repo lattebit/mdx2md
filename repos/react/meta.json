@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/reactjs/react.dev",
+  "branch": "main",
+  "docsPath": "src/content/learn",
+  "outputPath": "output/react",
+  "preset": "docusaurus"
+}
