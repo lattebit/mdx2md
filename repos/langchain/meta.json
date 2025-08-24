@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/langchain-ai/langchain",
+  "branch": "master",
+  "docsPath": "docs",
+  "outputPath": "output/langchain",
+  "preset": "docusaurus"
+}
