@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/codeceptjs/CodeceptJS",
+  "branch": "3.x",
+  "docsPath": "docs",
+  "outputPath": "output/codeceptjs",
+  "preset": "docusaurus"
+}
