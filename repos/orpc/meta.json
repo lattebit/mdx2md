@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/unnoq/orpc",
+  "branch": "main",
+  "docsPath": "apps/content",
+  "outputPath": "output/orpc",
+  "preset": "fumadocs"
+}
