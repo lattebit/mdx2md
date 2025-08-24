@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/chartjs/Chart.js",
+  "branch": "master",
+  "docsPath": "docs",
+  "outputPath": "output/chartjs",
+  "preset": "vitepress"
+}
