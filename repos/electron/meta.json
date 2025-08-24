@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/electron/electronjs.org",
+  "branch": "master",
+  "docsPath": "docs",
+  "outputPath": "output/electron",
+  "preset": "docusaurus"
+}
