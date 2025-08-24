@@ -153,4 +153,33 @@ export default config
     console.log('✓ Created mdx2md.config.ts')
   })
 
+program
+  .command('list-repos')
+  .description('List available repositories')
+  .action(async () => {
+    const { resolve, dirname } = await import('path')
+    const { fileURLToPath } = await import('url')
+    const { readdirSync, statSync, existsSync } = await import('fs')
+    
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname = dirname(__filename)
+    const reposDir = resolve(dirname(dirname(__dirname)), 'repos')
+    
+    const repos = readdirSync(reposDir)
+      .filter(dir => {
+        const dirPath = resolve(reposDir, dir)
+        return statSync(dirPath).isDirectory() && existsSync(resolve(dirPath, 'meta.json'))
+      })
+    
+    if (repos.length === 0) {
+      console.log('No repositories found')
+      return
+    }
+    
+    console.log('Available repositories:')
+    repos.forEach(repo => {
+      console.log(`  - ${repo}`)
+    })
+  })
+
 program.parse()

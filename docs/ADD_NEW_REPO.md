@@ -42,14 +42,14 @@ mkdir -p repos/你的仓库名
 ```typescript
 import type { Mdx2MdConfig } from '../../mdx2md/src/types';
 
-const config: Mdx2MdConfig = {
-  input: '/tmp/target-repo/docs',
-  output: 'output/你的仓库名',
-  preset: 'docusaurus',
-  // 自定义配置...
-};
-
-export default config;
+export function getConfig(repoPath: string, docsPath: string, preset?: string): Mdx2MdConfig {
+  return {
+    source: `${repoPath}/${docsPath}`,
+    output: 'output/你的仓库名',
+    preset: preset || 'docusaurus',
+    // 自定义配置...
+  };
+}
 ```
 
 并在 `meta.json` 中添加：
@@ -127,20 +127,17 @@ EOF
 cat > repos/vue/vue.ts << 'EOF'
 import type { Mdx2MdConfig } from '../../mdx2md/src/types';
 
-const config: Mdx2MdConfig = {
-  input: '/tmp/target-repo/src',
-  output: 'output/vue',
-  preset: 'vitepress',
-  passes: {
-    headingOffset: { offset: 1 },
-    rewriteLinks: {
-      pattern: /\.md$/,
-      replacement: ''
+export function getConfig(repoPath: string, docsPath: string, preset?: string): Mdx2MdConfig {
+  return {
+    source: `${repoPath}/${docsPath}`,
+    output: 'output/vue',
+    preset: preset || 'vitepress',
+    corePass: {
+      headingOffset: 1,
+      rewriteLinks: true
     }
-  }
-};
-
-export default config;
+  };
+}
 EOF
 
 # 5. 提交推送
@@ -175,7 +172,17 @@ git push origin repos/vue
 4. 检查 meta.json 格式
 
 **Q: 如何手动测试单个仓库？**
-在 GitHub Actions 页面：
+
+方法 1 - 使用 CLI：
+```bash
+# 列出所有可用仓库
+bun run cli list-repos
+
+# 转换特定仓库
+bun run cli convert --repo-name fastapi
+```
+
+方法 2 - 使用 GitHub Actions：
 1. 选择 "Convert Single Repository" 工作流
 2. 点击 "Run workflow"
 3. 输入仓库名（如 "fastapi"）

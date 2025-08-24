@@ -24,33 +24,19 @@ interface RepoMeta {
 }
 
 function loadRepoMeta(configFile: string): RepoMeta | null {
-  // Load meta.json - go up from src to project root
-  const metaPath = resolve(dirname(dirname(__dirname)), 'repos', 'meta.json')
+  // Extract the directory from the config file path
+  const configDir = dirname(configFile)
+  const metaPath = resolve(configDir, 'meta.json')
+  
   if (!existsSync(metaPath)) {
-    console.error('repos/meta.json not found')
+    console.error(`meta.json not found in ${configDir}`)
     return null
   }
   
   const metaContent = readFileSync(metaPath, 'utf-8')
-  const meta = JSON.parse(metaContent)
+  const repoMeta = JSON.parse(metaContent) as RepoMeta
   
-  // Find repository info by config file
-  const configFileName = basename(configFile)
-  
-  // First try to match by explicit configFile
-  for (const [, repoInfo] of Object.entries(meta.repositories)) {
-    if ((repoInfo as any).configFile === configFileName) {
-      return repoInfo as RepoMeta
-    }
-  }
-  
-  // Then try to match by repository name (for default configs)
-  const nameFromFile = configFileName.replace('.ts', '')
-  if (meta.repositories[nameFromFile]) {
-    return meta.repositories[nameFromFile] as RepoMeta
-  }
-  
-  return null
+  return repoMeta
 }
 
 export async function processRepository(options: RepoProcessOptions): Promise<void> {
@@ -111,7 +97,8 @@ export async function processRepository(options: RepoProcessOptions): Promise<vo
   
   // Check if a custom config file is specified
   if (repoMeta.configFile && repoMeta.configFile !== 'default-config.ts') {
-    const configPath = resolve(dirname(dirname(__dirname)), 'repos', repoMeta.configFile)
+    // Config file path is already absolute (passed from repo-by-name.ts)
+    const configPath = options.configFile
     if (!existsSync(configPath)) {
       throw new Error(`Config file not found: ${configPath}`)
     }

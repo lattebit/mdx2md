@@ -27,27 +27,30 @@ interface RepoMeta {
 export async function processRepositoryByName(options: ProcessByNameOptions): Promise<void> {
   console.log(`Processing repository by name: ${options.name}`)
   
-  // Load meta.json - go up from src to project root
-  const metaPath = resolve(dirname(dirname(__dirname)), 'repos', 'meta.json')
+  // Load meta.json from the specific repository folder
+  const metaPath = resolve(dirname(dirname(__dirname)), 'repos', options.name, 'meta.json')
   if (!existsSync(metaPath)) {
-    throw new Error('repos/meta.json not found')
+    // List available repositories
+    const reposDir = resolve(dirname(dirname(__dirname)), 'repos')
+    const { readdirSync, statSync } = await import('fs')
+    const availableRepos = readdirSync(reposDir)
+      .filter(dir => {
+        const dirPath = resolve(reposDir, dir)
+        return statSync(dirPath).isDirectory() && existsSync(resolve(dirPath, 'meta.json'))
+      })
+      .join(', ')
+    throw new Error(`Repository '${options.name}' not found. Available repositories: ${availableRepos}`)
   }
   
   const metaContent = readFileSync(metaPath, 'utf-8')
-  const meta = JSON.parse(metaContent)
-  
-  // Find repository by name
-  const repoInfo: RepoMeta = meta.repositories[options.name]
-  if (!repoInfo) {
-    const availableRepos = Object.keys(meta.repositories).join(', ')
-    throw new Error(`Repository '${options.name}' not found. Available repositories: ${availableRepos}`)
-  }
+  const repoInfo: RepoMeta = JSON.parse(metaContent)
   
   // If it has a custom config file, delegate to processRepository
   if (repoInfo.configFile) {
     const { processRepository } = await import('./repo-processor.js')
+    const configFilePath = resolve(dirname(dirname(__dirname)), 'repos', options.name, repoInfo.configFile)
     await processRepository({
-      configFile: repoInfo.configFile,
+      configFile: configFilePath,
       clonePath: options.clonePath,
       keepTemp: options.keepTemp
     })
