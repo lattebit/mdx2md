@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/facebook/jest",
+  "branch": "main",
+  "docsPath": "website",
+  "outputPath": "output/jest",
+  "preset": "docusaurus"
+}
