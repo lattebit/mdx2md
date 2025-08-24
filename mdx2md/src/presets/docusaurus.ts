@@ -269,9 +269,13 @@ function handleAdmonitionComponent(node: any) {
 }
 
 function getAttributes(node: any): Record<string, any> {
+  return getJsxAttributes(node)
+}
+
+function getAttributesOld(node: any): Record<string, any> {
   const attrs: Record<string, any> = {}
   
-  if (node.attributes) {
+  if (node.attributes && Array.isArray(node.attributes)) {
     for (const attr of node.attributes) {
       if (attr.type === 'mdxJsxAttribute') {
         const name = attr.name

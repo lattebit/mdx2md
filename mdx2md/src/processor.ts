@@ -111,11 +111,21 @@ export function createProcessor(options: ProcessorOptions) {
       console.warn('Warning: Could not remove all UMR nodes after 5 passes')
     }
     
-    // Second pass: Clean up any remaining JSX elements
+    // Second pass: Clean up any remaining JSX elements and unknown nodes
     visit(tree, (node, index, parent) => {
       if (!parent || typeof index !== 'number') return
       
       const nodeType = node.type
+      
+      // Handle unknown nodes
+      if (nodeType === 'yaml' || nodeType === 'toml' || nodeType === 'json') {
+        // These are typically frontmatter that wasn't properly handled
+        // Remove them as they should have been processed already
+        parent.children.splice(index, 1)
+        return ['skip', index]
+      }
+      
+      // Handle JSX elements
       if (nodeType === 'mdxJsxFlowElement' || nodeType === 'mdxJsxTextElement') {
         const jsxNode = node as any
         const componentName = jsxNode.name
