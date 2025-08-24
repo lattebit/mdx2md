@@ -84,11 +84,28 @@ jobs:
             pnpm tsx src/cli.ts convert --repo-name ${{ matrix.repo.name }} --clone-path /tmp/target-repo
           fi
           
+      - name: Prepare artifacts
+        run: |
+          # The output is created at repository root level (outside mdx2md)
+          # We need to check if it exists and ensure it's in a location that can be uploaded
+          if [ -d "output/${{ matrix.repo.name }}" ]; then
+            echo "Output found at: output/${{ matrix.repo.name }}"
+            ls -la output/${{ matrix.repo.name }} | head -5
+          else
+            echo "Warning: No output found at output/${{ matrix.repo.name }}"
+            echo "Checking current directory structure:"
+            ls -la
+            if [ -d "output" ]; then
+              echo "Contents of output directory:"
+              ls -la output/
+            fi
+          fi
+          
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.repo.name }}-markdown
-          path: ../output/${{ matrix.repo.name }}
+          path: output/${{ matrix.repo.name }}
           retention-days: 30
           if-no-files-found: warn
           
@@ -96,11 +113,7 @@ jobs:
         if: always()
         run: |
           echo "### 📚 ${{ matrix.repo.name }}" >> $GITHUB_STEP_SUMMARY
-          # Output is relative to repo root, not mdx2md directory
-          if [ -d "../output/${{ matrix.repo.name }}" ]; then
-            count=$(find "../output/${{ matrix.repo.name }}" -name "*.md" | wc -l)
-            echo "✅ Converted ${count} files" >> $GITHUB_STEP_SUMMARY
-          elif [ -d "output/${{ matrix.repo.name }}" ]; then
+          if [ -d "output/${{ matrix.repo.name }}" ]; then
             count=$(find "output/${{ matrix.repo.name }}" -name "*.md" | wc -l)
             echo "✅ Converted ${count} files" >> $GITHUB_STEP_SUMMARY
           else
