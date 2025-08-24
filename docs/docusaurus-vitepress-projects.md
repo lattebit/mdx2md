@@ -39,62 +39,73 @@
 
 ### Tier 2 - Very Important (Active Development)
 
-- [ ] **NestJS** - https://github.com/nestjs/nest
+- [x] **NestJS** - https://github.com/nestjs/nest
   - Separate repo: `nestjs/docs.nestjs.com`
   - Most popular Node.js enterprise framework
   - Growing rapidly
+  - Conversion: 80/136 files (58.8%)
 
-- [ ] **Langchain** - https://github.com/langchain-ai/langchain
+- [x] **Langchain** - https://github.com/langchain-ai/langchain
   - Path: `/docs`
   - Critical for AI/LLM development
   - Extremely popular in AI space
+  - Conversion: 371/448 files (82.8%)
 
-- [ ] **Langchain-JS** - https://github.com/langchain-ai/langchainjs
+- [x] **Langchain-JS** - https://github.com/langchain-ai/langchainjs
   - Path: `/docs`
   - JavaScript version of Langchain
   - Important for JS AI developers
+  - Conversion: 110/321 files (34.3%)
 
-- [ ] **WebdriverIO** - https://github.com/webdriverio/webdriverio
-  - Path: `/docs`
+- [x] **WebdriverIO** - https://github.com/webdriverio/webdriverio
+  - Path: `/website/docs`
   - Popular Selenium alternative
   - Active development
+  - Conversion: 55/110 files (50%)
 
-- [ ] **Socket.IO** - https://github.com/socketio/socket.io
+- [x] **Socket.IO** - https://github.com/socketio/socket.io
   - Separate repo: `socketio/socket.io-website`
   - Real-time communication standard
   - Widely used
+  - Conversion: 36/85 files (42.4%)
 
-- [ ] **Electron** - https://github.com/electron/electron
+- [x] **Electron** - https://github.com/electron/electron
   - Separate repo: `electron/electronjs.org`
   - Desktop app framework
   - Powers VS Code, Discord, etc.
+  - Conversion: 2/2 files (100%)
 
-- [ ] **Tauri** - https://github.com/tauri-apps/tauri
-  - Path: `/docs`
+- [x] **Tauri** - https://github.com/tauri-apps/tauri
+  - Separate repo: `tauri-apps/tauri-docs`
   - Modern Electron alternative
   - Growing rapidly
+  - Conversion: 109/346 files (31.5%)
 
 ### Tier 3 - Important (Stable/Specialized)
 
-- [ ] **Lexical** - https://github.com/facebook/lexical
-  - Path: `/packages/lexical-website`
+- [x] **Lexical** - https://github.com/facebook/lexical
+  - Path: `/packages/lexical-website/docs`
   - Facebook's text editor framework
   - Replacing Draft.js
+  - Conversion: 15/34 files (44.1%)
 
-- [ ] **CodeceptJS** - https://github.com/codeceptjs/CodeceptJS
+- [x] **CodeceptJS** - https://github.com/codeceptjs/CodeceptJS
   - Path: `/docs`
   - High-level testing framework
   - Good abstraction layer
+  - Conversion: 42/73 files (57.5%)
 
-- [ ] **Sequelize** - https://github.com/sequelize/sequelize
-  - Path: `/docs`
+- [x] **Sequelize** - https://github.com/sequelize/sequelize
+  - Separate repo: `sequelize/website`
   - Popular Node.js ORM
   - Widely used
+  - Conversion: 19/58 files (32.8%)
 
-- [ ] **Drizzle** - https://github.com/drizzle-team/drizzle-orm
+- [x] **Drizzle** - https://github.com/drizzle-team/drizzle-orm
   - Path: `/docs`
   - Modern TypeScript ORM
   - Growing alternative to Prisma
+  - Conversion: 4/4 files (100%)
 
 - [ ] **Mantine React Table** - https://github.com/KevinVandy/mantine-react-table
   - Path: `/docs`
@@ -132,39 +143,45 @@
 
 ### Tier 1 - Critical/Most Popular
 
-- [ ] **Vue** - https://github.com/vuejs/core
+- [x] **Vue** - https://github.com/vuejs/core
   - Separate repo: `vuejs/docs`
   - Core Vue.js framework
   - One of top 3 frontend frameworks
+  - Conversion: 0/121 files (0%)
 
-- [ ] **Vite** - https://github.com/vitejs/vite
+- [x] **Vite** - https://github.com/vitejs/vite
   - Path: `/docs`
   - Modern build tool
   - Replacing webpack for many projects
+  - Conversion: 35/52 files (67.3%)
 
 ### Tier 2 - Very Important
 
-- [ ] **Chart.js** - https://github.com/chartjs/Chart.js
+- [x] **Chart.js** - https://github.com/chartjs/Chart.js
   - Path: `/docs`
   - Most popular charting library
   - Used everywhere for data viz
+  - Conversion: 119/134 files (88.8%)
 
-- [ ] **Element Plus** - https://github.com/element-plus/element-plus
+- [x] **Element Plus** - https://github.com/element-plus/element-plus
   - Path: `/docs`
   - Most popular Vue UI library
   - Enterprise standard in China
+  - Conversion: 15/102 files (14.7%)
 
-- [ ] **VuePress** - https://github.com/vuejs/vuepress
+- [x] **VuePress** - https://github.com/vuejs/vuepress
   - Path: `/docs`
   - Vue's documentation framework
   - Meta - helps understand VitePress
+  - Conversion: 87/112 files (77.7%)
 
 ### Tier 3 - Important
 
-- [ ] **Equal UI** - https://github.com/Equal-UI/Equal
+- [x] **Equal UI** - https://github.com/Equal-UI/Equal
   - Path: `/docs`
   - Modern Vue UI components
   - Clean design system
+  - Conversion: 2/2 files (100%)
 
 ---
 
