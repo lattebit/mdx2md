@@ -4,16 +4,21 @@ Universal MDX to Markdown converter for LLM-friendly documentation.
 
 ## Features
 
-- 🎯 **Framework Presets**: Built-in support for Fumadocs, Docusaurus, and VitePress
+- 🎯 **Framework Presets**: Built-in support for Fumadocs, Docusaurus, VitePress, and MkDocs
 - 🔄 **UMR (Unified Markdown Representation)**: Semantic intermediate representation for consistent output
 - 🛠️ **Configurable Passes**: Fine-tune transformation behavior
 - 📁 **Flexible Output**: Tree structure or single file output
 - 🚀 **CLI & API**: Use as command-line tool or programmatically
+- ⚡ **Bun Runtime**: Fast execution with native TypeScript support, no compilation needed
+
+## Prerequisites
+
+- [Bun](https://bun.sh) v1.0 or higher
 
 ## Installation
 
 ```bash
-pnpm add @repo/mdx2md
+bun install
 ```
 
 ## Usage
@@ -22,16 +27,22 @@ pnpm add @repo/mdx2md
 
 ```bash
 # Convert with default settings
-npx mdx2md --source ./docs --output ./output
+./cli convert --source ./docs --output ./output
 
-# Use specific preset
-npx mdx2md --source ./docs --output ./output --preset fumadocs
+# Or using bun run
+bun run cli convert --source ./docs --output ./output
+
+# Use specific preset (fumadocs, docusaurus, vitepress, mkdocs)
+bun run cli convert --source ./docs --output ./output --preset mkdocs
 
 # Single file output
-npx mdx2md --source ./docs --output ./output/combined.md --output-mode single
+bun run cli convert --source ./docs --output ./output/combined.md --output-mode single
+
+# Watch mode
+bun run cli convert --source ./docs --output ./output --watch
 
 # Initialize config file
-npx mdx2md init
+bun run cli init
 ```
 
 ### Programmatic API
@@ -100,20 +111,29 @@ The package follows the architecture defined in `docs/compile-mdx.md`:
 - Code groups
 - Component embedding
 
+### MkDocs
+- Admonitions with `///` syntax
+- Code blocks with titles and highlighting
+- Tab components
+- Standard MkDocs extensions
+
 ## Development
 
 ```bash
 # Install dependencies
-pnpm install
+bun install
 
 # Run tests
-pnpm test
+bun test
 
-# Build
-pnpm build
+# Type check
+bun run typecheck
 
-# Development mode
-pnpm dev
+# Lint
+bun run lint
+
+# Development mode with watch
+bun run dev
 ```
 
 ## License

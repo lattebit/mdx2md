@@ -21,42 +21,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          version: 8
+          bun-version: latest
           
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-          cache-dependency-path: mdx2md/pnpm-lock.yaml
-          
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-          
-      - name: Setup pnpm cache
+      - name: Cache Bun dependencies
         uses: actions/cache@v4
         with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: |
+            ~/.bun/install/cache
+            mdx2md/node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('mdx2md/bun.lockb') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-            
+            ${{ runner.os }}-bun-
+          
       - name: Install dependencies
         run: |
           cd mdx2md
-          pnpm install
+          bun install
         
       - id: generate
         name: Generate matrix from repos/
         run: |
           # Generate matrix JSON from repos/meta.json
-          matrix=$(node scripts/generate-matrix.js)
+          matrix=$(bun scripts/generate-matrix.js)
           echo "matrix=${matrix}" >> "$GITHUB_OUTPUT"
           echo "Generated matrix for $(echo $matrix | jq '.repo | length') repositories"
 
@@ -72,36 +61,25 @@ jobs:
       - name: Checkout mdx2md
         uses: actions/checkout@v4
         
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          version: 8
+          bun-version: latest
           
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-          cache-dependency-path: mdx2md/pnpm-lock.yaml
-          
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-          
-      - name: Setup pnpm cache
+      - name: Cache Bun dependencies
         uses: actions/cache@v4
         with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: |
+            ~/.bun/install/cache
+            mdx2md/node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('mdx2md/bun.lockb') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-            
+            ${{ runner.os }}-bun-
+          
       - name: Install dependencies
         run: |
           cd mdx2md
-          pnpm install
+          bun install
         
       - name: Clone target repository
         run: |
@@ -111,9 +89,9 @@ jobs:
         run: |
           cd mdx2md
           if [ "${{ matrix.repo.file }}" != "null" ]; then
-            pnpm tsx src/cli.ts convert --repo-file ../${{ matrix.repo.file }} --clone-path /tmp/target-repo
+            bun src/cli.ts convert --repo-file ../${{ matrix.repo.file }} --clone-path /tmp/target-repo
           else
-            pnpm tsx src/cli.ts convert --repo-name ${{ matrix.repo.name }} --clone-path /tmp/target-repo
+            bun src/cli.ts convert --repo-name ${{ matrix.repo.name }} --clone-path /tmp/target-repo
           fi
           
       - name: Prepare artifacts

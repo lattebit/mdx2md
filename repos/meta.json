@@ -16,47 +16,12 @@
       "outputPath": "output/nextjs",
       "preset": "fumadocs"
     },
-    "tanstack-router": {
-      "url": "https://github.com/TanStack/router",
-      "branch": "main",
-      "docsPath": "docs/router",
-      "outputPath": "output/tanstack-router"
-    },
-    "tanstack-start": {
-      "url": "https://github.com/TanStack/router",
-      "branch": "main",
-      "docsPath": "docs/start",
-      "outputPath": "output/tanstack-start"
-    },
-    "react-router": {
-      "url": "https://github.com/remix-run/react-router",
-      "branch": "main",
-      "docsPath": "docs",
-      "outputPath": "output/react-router"
-    },
     "hono": {
-      "url": "https://github.com/honojs/hono",
+      "url": "https://github.com/honojs/website",
       "branch": "main",
-      "docsPath": "docs",
-      "outputPath": "output/hono"
-    },
-    "express": {
-      "url": "https://github.com/expressjs/express",
-      "branch": "master",
       "docsPath": ".",
-      "outputPath": "output/express"
-    },
-    "expressjs": {
-      "url": "https://github.com/expressjs/expressjs.com",
-      "branch": "gh-pages",
-      "docsPath": "en",
-      "outputPath": "output/expressjs"
-    },
-    "fastify": {
-      "url": "https://github.com/fastify/fastify",
-      "branch": "main",
-      "docsPath": "docs",
-      "outputPath": "output/fastify"
+      "outputPath": "output/hono",
+      "preset": "vitepress"
     },
     "trpc": {
       "url": "https://github.com/trpc/trpc",
@@ -65,74 +30,19 @@
       "outputPath": "output/trpc",
       "preset": "docusaurus"
     },
-    "orpc": {
-      "url": "https://github.com/unnoq/orpc",
-      "branch": "main",
-      "docsPath": ".",
-      "outputPath": "output/orpc"
-    },
-    "drizzle": {
-      "url": "https://github.com/drizzle-team/drizzle-orm",
-      "branch": "main",
-      "docsPath": ".",
-      "outputPath": "output/drizzle"
-    },
-    "drizzle-orm-docs": {
-      "url": "https://github.com/drizzle-team/drizzle-orm-docs",
-      "branch": "main",
-      "docsPath": "src/content",
-      "outputPath": "output/drizzle-orm-docs"
-    },
     "prisma": {
       "url": "https://github.com/prisma/docs",
       "branch": "main",
-      "docsPath": "content",
-      "outputPath": "output/prisma"
-    },
-    "turborepo": {
-      "url": "https://github.com/vercel/turborepo",
-      "branch": "main",
-      "docsPath": "docs",
-      "outputPath": "output/turborepo",
-      "preset": "fumadocs"
-    },
-    "fumadocs": {
-      "url": "https://github.com/fuma-nama/fumadocs",
-      "branch": "dev",
-      "docsPath": "apps/docs",
-      "outputPath": "output/fumadocs",
-      "preset": "fumadocs"
+      "docsPath": ".",
+      "outputPath": "output/prisma",
+      "preset": "docusaurus"
     },
     "fastapi": {
       "url": "https://github.com/fastapi/fastapi",
       "branch": "master",
-      "docsPath": "docs",
-      "outputPath": "output/fastapi"
-    },
-    "django": {
-      "url": "https://github.com/django/django",
-      "branch": "main",
-      "docsPath": "docs",
-      "outputPath": "output/django"
-    },
-    "vue": {
-      "url": "https://github.com/vuejs/docs",
-      "branch": "main",
-      "docsPath": "src",
-      "outputPath": "output/vue",
-      "preset": "vitepress"
-    },
-    "redux": {
-      "url": "https://github.com/reduxjs/redux",
-      "branch": "master",
-      "docsPath": "docs",
-      "outputPath": "output/redux"
-    },
-    "tanstack": {
-      "url": "https://github.com/TanStack/tanstack.com",
-      "branch": "main",
-      "docsPath": "app",
-      "outputPath": "output/tanstack"
+      "docsPath": "docs/en",
+      "outputPath": "output/fastapi",
+      "preset": "mkdocs"
     }
   }
 }
