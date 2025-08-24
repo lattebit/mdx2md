@@ -118,19 +118,30 @@ jobs:
           
       - name: Prepare artifacts
         run: |
-          # The output is created at repository root level (outside mdx2md)
-          # We need to check if it exists and ensure it's in a location that can be uploaded
-          if [ -d "output/${{ matrix.repo.name }}" ]; then
-            echo "Output found at: output/${{ matrix.repo.name }}"
-            ls -la output/${{ matrix.repo.name }} | head -5
-          else
-            echo "Warning: No output found at output/${{ matrix.repo.name }}"
-            echo "Checking current directory structure:"
-            ls -la
-            if [ -d "output" ]; then
-              echo "Contents of output directory:"
-              ls -la output/
+          # Debug: Check where we are and what output exists
+          echo "Current directory: $(pwd)"
+          echo "Checking for output directories..."
+          
+          # Check if output exists at repository root
+          if [ -d "output" ]; then
+            echo "Found output directory at repository root:"
+            ls -la output/
+            
+            # Check for the specific repo directory
+            if [ -d "output/${{ matrix.repo.name }}" ]; then
+              echo "✓ Found output/${{ matrix.repo.name }}"
+            elif [ -d "output/default" ]; then
+              echo "Found output/default - moving to output/${{ matrix.repo.name }}"
+              mv output/default output/${{ matrix.repo.name }}
             fi
+          fi
+          
+          # Final check
+          if [ -d "output/${{ matrix.repo.name }}" ]; then
+            echo "✓ Output ready at: output/${{ matrix.repo.name }}"
+            echo "File count: $(find output/${{ matrix.repo.name }} -name '*.md' | wc -l)"
+          else
+            echo "⚠️ No output found for ${{ matrix.repo.name }}"
           fi
           
       - name: Upload artifacts

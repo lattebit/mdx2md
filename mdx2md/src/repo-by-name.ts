@@ -77,13 +77,16 @@ export async function processRepositoryByName(options: ProcessByNameOptions): Pr
     // Use the default config
     const config: Mdx2MdConfig = getDefaultConfig(repoPath, repoInfo.docsPath, repoInfo.preset)
     
+    console.log(`Default output: ${config.output}`)
+    console.log(`Repo outputPath: ${repoInfo.outputPath}`)
+    
     // Override output path from meta.json if specified
     if (repoInfo.outputPath) {
       config.output = repoInfo.outputPath
     }
     
     console.log(`Source: ${config.source}`)
-    console.log(`Output: ${config.output}`)
+    console.log(`Final output: ${config.output}`)
     
     // Verify source directory exists
     if (!existsSync(config.source)) {
